@@ -101,4 +101,28 @@ export class NotesManager implements noteManagement{
       return false;
     }
   }
+
+  public listNotes(user: string): boolean {
+    this.establishPath(user);
+    if (fs.existsSync(this._path)) {
+      const notesCreated = fs.readdirSync(this._path);
+      if (notesCreated.length > 0) {
+        console.log(chalk.green('The notes are listed below: '));
+        for (let i:number = 0; i < notesCreated.length; i++) {
+          const note = this.travelNotes(this._path + '/' + notesCreated[i]);
+          const title = note.title;
+          const color = note.color;
+          this.print(color, title);
+        }
+        return true;
+      } 
+      else {
+        console.log(chalk.red('This User has NOT got notes'));
+        return false;
+      }
+    } else {
+      console.log(chalk.red(`User does NOT exists yet`));
+      return false;
+    }
+  }
 }
