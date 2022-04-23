@@ -53,5 +53,10 @@ describe('test NotesManager listNote method', () => {
   it('object.readNote() returns the correct boolean', () => {
     expect(testingNote.listNotes('Adrian')).to.eql(true); 
   });
+  it('object.readNote() returns the correct boolean', () => {
+    expect(testingNote.listNotes('Pedro')).to.eql(false); 
+  });
 });
+
+
 
