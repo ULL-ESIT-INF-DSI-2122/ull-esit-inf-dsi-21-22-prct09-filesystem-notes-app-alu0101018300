@@ -113,5 +113,22 @@ yargs.command({
   },
 });
 
+yargs.command({
+  command: 'ls',
+  describe: 'List all the notes from a certain user',
+  builder: {
+    user: {
+      describe: 'Owner of the notes',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      notesManager.listNotes(argv.user);
+    }
+  },
+});
+
 yargs.parse();
 
