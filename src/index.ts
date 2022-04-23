@@ -1,5 +1,5 @@
 import * as yargs from 'yargs';
-import { NotesManager } from './notes';
+import { NotesManager } from './notesManager';
 import * as chalk from 'chalk';
 
 const notesManager = new NotesManager();
