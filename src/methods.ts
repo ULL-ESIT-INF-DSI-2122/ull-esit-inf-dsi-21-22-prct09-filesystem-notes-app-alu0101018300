@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 export class NotesProcessor {
   constructor() {}
@@ -14,10 +14,10 @@ export class NotesProcessor {
     }
   }
 
-  private readUserNotes (json:string) {
+  /*private readUserNotes (json:string) {
     const notes = JSON.parse(fs.readFileSync(json, 'utf8'));
     return notes;
-  }
+  }*/
 
   public addNote (user:string, title:string, body:string, color:string): boolean {
     this.addingUserFolder(user);
