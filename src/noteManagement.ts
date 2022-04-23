@@ -1,3 +1,7 @@
+/**
+ * Interfaz que obliga a la clase a tener los métodos esenciales 
+ * para la gestión de las notas
+ */
 export interface noteManagement {
   addNote(user: string, title: string, body: string, color: string): boolean;
   readNote(user: string, title: string): boolean;

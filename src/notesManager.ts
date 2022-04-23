@@ -2,25 +2,52 @@ import * as fs from 'fs';
 import * as chalk from 'chalk';
 import { noteManagement } from './noteManagement';
 
+/**
+ * Clase Notes Manager, la cual será la encargada de almacenar todos los
+ * métodos de gestión de las notas
+ */
 export class NotesManager implements noteManagement{
+  /**
+   * El atributo path es el que almacenará el path del fichero deseado
+   * en todo momento
+   */
   private _path: string = '';
   constructor() {}
 
+  /**
+   * Funciṕn que modifica el atributo path para añadirle el usuario 
+   * a un path general, para que se almacenen ahi sus notas
+   * @param user usuario que vamos a añadir al path
+   */
   private establishPath(user: string): void {
     this._path = `/home/usuario/Practicas/Practica9/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101018300/notes/${user}`;
   }
 
+  /**
+   * Función que añade un nuevo directorio en caso de que ese usuario
+   * no haya creado ninguna nota, este directorio tendrá el nombre del 
+   * usuario
+   */
   private addFolder(): void {
     if (!fs.existsSync(this._path)) {
       fs.mkdirSync(this._path);
     }
   }
 
+  /**
+   * Esta función es la que recorrerá los ficheros json de un usuario en concreto
+   * @param path path del fichero que queremos leer
+   */
   private travelNotes(path: string) {
     const note = JSON.parse(fs.readFileSync(path, 'utf8'));
     return note;
   }
 
+  /**
+   * Función que imprimirá con el formato deseado y usando chalk
+   * @param color Color en el que vamos a imprimir
+   * @param body Contenido que queremos imprimir
+   */
   private print(color: string, body:string) {
     if (color === 'red') {
       console.log(chalk.red(body));
@@ -40,6 +67,13 @@ export class NotesManager implements noteManagement{
     }
   }
 
+  /**
+   * Función que añade una nueva nota a nuestro directorio de notas
+   * @param user Propietario de la nota
+   * @param title Título de la nota
+   * @param body Contenido de la nota
+   * @param color Color de la nota
+   */
   public addNote(user: string, title: string, body: string, color: string): boolean {
     this.establishPath(user);
     this.addFolder();
@@ -58,6 +92,11 @@ export class NotesManager implements noteManagement{
     }
   }
 
+  /**
+   * Función que va a leer una nota almacenada con un título en concreto
+   * @param user Propietario de la nota
+   * @param title Título de la nota
+   */
   public readNote(user: string, title: string): boolean {
     this.establishPath(user);
     const notePath:string = this._path + '/' + title + '.json';
@@ -75,6 +114,13 @@ export class NotesManager implements noteManagement{
     }
   }
 
+  /**
+   * Función que va a modificar el contenido una nota ya existente, a partir de un usuario y un título
+   * @param user Propietario de la nota
+   * @param title Título de la nota
+   * @param body Nuevo contenido de la nota
+   * @param color Nuevo color de la nota
+   */
   public editNote(user: string, title: string, body: string, color: string): boolean {
     this.establishPath(user);
     if (fs.existsSync(this._path + '/' + title + '.json')) {
@@ -90,6 +136,11 @@ export class NotesManager implements noteManagement{
     }
   }
 
+  /**
+   * Función que elimina una nota en concreto, a partir de un usuario y un título
+   * @param user Propietario de la nota
+   * @param title Título de la nota
+   */
   public removeNote(user: string, title: string): boolean {
     this.establishPath(user);
     if (fs.existsSync(this._path + '/' + title + '.json')) {
@@ -102,6 +153,10 @@ export class NotesManager implements noteManagement{
     }
   }
 
+  /**
+   * Función que muestra todas las notas de un usuario
+   * @param user Usuario del que queremos conocer todas las notas
+   */
   public listNotes(user: string): boolean {
     this.establishPath(user);
     if (fs.existsSync(this._path)) {

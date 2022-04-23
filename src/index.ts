@@ -2,8 +2,15 @@ import * as yargs from 'yargs';
 import { NotesManager } from './notesManager';
 import * as chalk from 'chalk';
 
+/**
+ * Objeto con el que realizaremos las operaciones necesarias
+ */
 const notesManager = new NotesManager();
 
+/**
+ * Comando add, el cual realiza la operación de añadir nota, a partir de las opciones
+ * obligatorias user, title, body y color
+ */
 yargs.command({
   command: 'add',
   describe: 'Writing a new note',
@@ -37,6 +44,11 @@ yargs.command({
   },
 });
 
+
+/**
+ * Comando read, el cual realiza la operación de leer una nota, a partir de las opciones
+ * obligatorias user y title
+ */
 yargs.command({
   command: 'read',
   describe: 'Read a certain note',
@@ -59,6 +71,10 @@ yargs.command({
   },
 });
 
+/**
+ * Comando edit, el cual realiza la operación de editar una nota, a partir de las opciones
+ * obligatorias user, title, body y color
+ */
 yargs.command({
   command: 'edit',
   describe: 'Modify the content of an already existing note',
@@ -91,6 +107,11 @@ yargs.command({
   },
 });
 
+
+/**
+ * Comando remove, el cual realiza la operación de eliminar una nota, a partir de las opciones
+ * obligatorias user y title
+ */
 yargs.command({
   command: 'rm',
   describe: 'Delete a note by the title and the owner',
@@ -113,6 +134,10 @@ yargs.command({
   },
 });
 
+/**
+ * Comando list, el cual realiza la operación de eliminar una nota, a partir de las opciones
+ * obligatorias user y title
+ */
 yargs.command({
   command: 'ls',
   describe: 'List all the notes from a certain user',
