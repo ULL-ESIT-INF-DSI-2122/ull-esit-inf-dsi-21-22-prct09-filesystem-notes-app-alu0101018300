@@ -91,5 +91,27 @@ yargs.command({
   },
 });
 
+yargs.command({
+  command: 'rm',
+  describe: 'Delete a note by the title and the owner',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to remove',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string') {
+      notesManager.removeNote(argv.user, argv.title);
+    }
+  },
+});
+
 yargs.parse();
 

@@ -24,11 +24,14 @@ export class NotesManager implements noteManagement{
   private print(color: string, body:string) {
     if (color === 'red') {
       console.log(chalk.red(body));
-    } else if (color === 'green') {
+    } 
+    else if (color === 'green') {
       console.log(chalk.green(body));
-    } else if (color === 'blue') {
+    }
+     else if (color === 'blue') {
       console.log(chalk.blue(body));
-    } else if (color === 'yellow') {
+    } 
+    else if (color === 'yellow') {
       console.log(chalk.yellow(body));
     }
     else {
