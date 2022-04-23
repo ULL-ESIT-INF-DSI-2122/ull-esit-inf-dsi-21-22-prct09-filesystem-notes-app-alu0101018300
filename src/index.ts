@@ -6,25 +6,25 @@ const notesManager = new NotesManager();
 
 yargs.command({
   command: 'add',
-  describe: 'Add a new note',
+  describe: 'Writing a new note',
   builder: {
     title: {
-      describe: 'Note title',
+      describe: 'Title of the note',
       demandOption: true,
       type: 'string',
     },
     user: {
-      describe: 'User who writes the note',
+      describe: 'Property of the note',
       demandOption: true,
       type: 'string',
     },
     body: {
-      describe: 'Note Body',
+      describe: 'Content of the note',
       demandOption: true,
       type: 'string',
     },
     color: {
-      describe: 'Note Color',
+      describe: 'Color of the note',
       demandOption: true,
       type: 'string',
     },
