@@ -54,8 +54,39 @@ yargs.command({
   },
   handler(argv) {
     if (typeof argv.user === 'string' && typeof argv.title === 'string') {
-      // const newTitle:string = argv.title.replace(/\s/g, '-');
       notesManager.readNote(argv.user, argv.title);
+    }
+  },
+});
+
+yargs.command({
+  command: 'edit',
+  describe: 'Modify the content of an already existing note',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to modify',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    body: {
+      describe: 'New content of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    color: {
+      describe: 'New Color for the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string') {
+      notesManager.editNote(argv.user, argv.title, argv.body, argv.color);
     }
   },
 });
