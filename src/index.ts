@@ -37,5 +37,28 @@ yargs.command({
   },
 });
 
+yargs.command({
+  command: 'read',
+  describe: 'Read a certain note',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to read',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string') {
+      // const newTitle:string = argv.title.replace(/\s/g, '-');
+      notesManager.readNote(argv.user, argv.title);
+    }
+  },
+});
+
 yargs.parse();
 

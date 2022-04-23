@@ -67,7 +67,7 @@ export class NotesManager implements noteManagement{
       return true;
     } 
     else {
-      console.log(chalk.red('The note does not exist.'));
+      console.log(chalk.red.inverse('This note does NOT exist.'));
       return false;
     }
   }
