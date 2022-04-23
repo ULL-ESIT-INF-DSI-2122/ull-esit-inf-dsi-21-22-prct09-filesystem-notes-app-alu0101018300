@@ -71,4 +71,19 @@ export class NotesManager implements noteManagement{
       return false;
     }
   }
+
+  public editNote(user: string, title: string, body: string, color: string): boolean {
+    this.establishPath(user);
+    if (fs.existsSync(this._path + '/' + title + '.json')) {
+      const note = this.travelNotes(this._path + '/' + title + '.json');
+      note.body = body;
+      note.color = color;
+      fs.writeFileSync(this._path + '/' + title + '.json', JSON.stringify(note));
+      console.log(chalk.green(`Edition Completed`));
+      return true;
+    } else {
+      console.log(chalk.red('This note does NOT exist.'));
+      return false;
+    }
+  }
 }
