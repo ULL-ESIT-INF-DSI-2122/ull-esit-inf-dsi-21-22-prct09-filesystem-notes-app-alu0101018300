@@ -82,7 +82,19 @@ export class NotesManager implements noteManagement{
       console.log(chalk.green(`Edition Completed`));
       return true;
     } else {
-      console.log(chalk.red('This note does NOT exist.'));
+      console.log(chalk.red.inverse('This note does NOT exist.'));
+      return false;
+    }
+  }
+
+  public removeNote(user: string, title: string): boolean {
+    this.establishPath(user);
+    if (fs.existsSync(this._path + '/' + title + '.json')) {
+      fs.unlinkSync(this._path + '/' + title + '.json');
+      console.log(chalk.green(`Deletion completed.`));
+      return true;
+    } else {
+      console.log(chalk.red.inverse('This note does NOT exist.'));
       return false;
     }
   }
