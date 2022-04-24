@@ -181,6 +181,226 @@ de la nota como en el caso anterior, para posteriormente, si esta existe, cambia
 pasados como parámetros del método. También muestra los mensajes en los colores correspondientes, en función de como haya
 resultado el desarrollo de la función.
 
+##### RemoveNote()
+
+``` typescript
+  public removeNote(user: string, title: string): boolean {
+    this.establishPath(user);
+    if (fs.existsSync(this._path + '/' + title + '.json')) {
+      fs.unlinkSync(this._path + '/' + title + '.json');
+      console.log(chalk.green(`Deletion completed.`));
+      return true;
+    } else {
+      console.log(chalk.red.inverse('This note does NOT exist.'));
+      return false;
+    }
+  }
+```
+
+Esta función es la encargada de eliminar una nota, por lo que en primer lugar, comprueba la existencia de la misma, para
+posteriormente, si esta exixte, eliminarla con la función predeterminada de fs. Finalmente, mostrará un mensaje en función
+de como se haya producido la ejecución con el color correspondiente.
+
+##### ListNote()
+
+``` typescript
+  public listNotes(user: string): boolean {
+    this.establishPath(user);
+    if (fs.existsSync(this._path)) {
+      const notesCreated = fs.readdirSync(this._path);
+      if (notesCreated.length > 0) {
+        console.log(chalk.green('The notes are listed below: '));
+        for (let i:number = 0; i < notesCreated.length; i++) {
+          const note = this.travelNotes(this._path + '/' + notesCreated[i]);
+          const title = note.title;
+          const color = note.color;
+          this.print(color, title);
+        }
+        return true;
+      } 
+      else {
+        console.log(chalk.red('This User has NOT got notes'));
+        return false;
+      }
+    } else {
+      console.log(chalk.red(`User does NOT exists yet`));
+      return false;
+    }
+  }
+  ```
+  
+  Esta función es la encargada de mostrar todas las notas de un usuario, por lo que primero comprobará la existencia del 
+  directorio de ese usuario. Posteriormente comprobará la cantidad de notas que hay, si no encuentra ninguna lo comunicará,
+  si hay más, imprimirá los títulos de las notas en el color correspondiente. También mostrará mensajes de su correcto o 
+  mal funcionamiento.
+  
+  ### Index
+  
+  En este fichero, se almacenarán los procesos para la ejecución del programa, todos tendrán una estructura similar. Básicamente,
+  se hará uso de yargs, el cual permite que el programa se ejecute desde la línea de comandos. Los comandos serán los métodos 
+  Public mencionados anteriormente, pasandole como opción los parámetros que son necesarios para la función. Por ejemplo:
+  
+  #### Comando Add
+  
+  ``` typescript
+  yargs.command({
+  command: 'add',
+  describe: 'Writing a new note',
+  builder: {
+    title: {
+      describe: 'Title of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Property of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    body: {
+      describe: 'Content of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    color: {
+      describe: 'Color of the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string') {
+      console.log(chalk.blue(`Adding new note...`));
+      notesManager.addNote(argv.user, argv.title, argv.body, argv.color);
+    }
+  },
+});
+``` 
+
+En este caso, vemos como es la estructura de adición de comando de yargs. En primer lugar, se añade el nombre del nuevo comando;
+posteriormente, describimos que hace; seguidamente, se procede a escribir las opciones, tanto obligatorias como opcionales, que va 
+a tener este comando; y finalmente, el manejador de este comando, el cual será prácticamente igual en todos los comandos, es decir,
+comprobará que las opciones son strings y si es así, ejecutará el comando.
+
+Así pues, el resto de comandos quedará de la siguiente manera:
+
+``` typescript
+yargs.command({
+  command: 'read',
+  describe: 'Read a certain note',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to read',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string') {
+      notesManager.readNote(argv.user, argv.title);
+    }
+  },
+});
+
+/**
+ * Comando edit, el cual realiza la operación de editar una nota, a partir de las opciones
+ * obligatorias user, title, body y color
+ */
+yargs.command({
+  command: 'edit',
+  describe: 'Modify the content of an already existing note',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to modify',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    body: {
+      describe: 'New content of the note',
+      demandOption: true,
+      type: 'string',
+    },
+    color: {
+      describe: 'New Color for the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string' && typeof argv.body === 'string' && typeof argv.color === 'string') {
+      notesManager.editNote(argv.user, argv.title, argv.body, argv.color);
+    }
+  },
+});
+
+
+/**
+ * Comando remove, el cual realiza la operación de eliminar una nota, a partir de las opciones
+ * obligatorias user y title
+ */
+yargs.command({
+  command: 'rm',
+  describe: 'Delete a note by the title and the owner',
+  builder: {
+    title: {
+      describe: 'Title of the note we want to remove',
+      demandOption: true,
+      type: 'string',
+    },
+    user: {
+      describe: 'Owner of the note',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string' && typeof argv.title === 'string') {
+      notesManager.removeNote(argv.user, argv.title);
+    }
+  },
+});
+
+/**
+ * Comando list, el cual realiza la operación de eliminar una nota, a partir de las opciones
+ * obligatorias user y title
+ */
+yargs.command({
+  command: 'ls',
+  describe: 'List all the notes from a certain user',
+  builder: {
+    user: {
+      describe: 'Owner of the notes',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      notesManager.listNotes(argv.user);
+    }
+  },
+});
+``` 
+
+Finalmente, para que la ejecución sea correcta, debemos ejecutar la orden *yargs.parse()*.
+
+### Conclusiones
+
+Con esta práctica nos hemos introducido en el desarrollo en type/javascript con API síncrona y con sistema de ficheros, siendo
+útil para poder seguir desarrollando en el futuro. También cabe destacar, que no se ha podido hacer funcionar las github actions,
+a pesar de estar habilitadas las mismas, puesto que la ruta añadida, solo funciona para este usuario.
+  
+  
 
 
 
