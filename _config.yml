@@ -1,1 +1,8 @@
+title: Sistema de Gestión de Notas
+author: Adrian Ramos Mejias
+email: alu0101018300@ull.edu.es
+description: > # this means to ignore newlines until "baseurl:"
+  Desarrollo de la practica 9 de la asignatura de Desarrollo de Sistemas 
+  Informáticos, donde hay que realizar un sistema de escritura y gestión
+  de notas.
 theme: jekyll-theme-cayman
