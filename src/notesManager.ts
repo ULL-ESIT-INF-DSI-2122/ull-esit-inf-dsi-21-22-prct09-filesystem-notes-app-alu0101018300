@@ -20,7 +20,7 @@ export class NotesManager implements noteManagement{
    * @param user usuario que vamos a añadir al path
    */
   private establishPath(user: string): void {
-    this._path = `/home/usuario/Practicas/Practica9/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101018300/notes/${user}`;
+    this._path = `/home/usuario/Practicas/Practica9/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101018300/${user}`;
   }
 
   /**
