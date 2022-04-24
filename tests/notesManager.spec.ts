@@ -19,30 +19,21 @@ describe('test NotesManager addNote method', () => {
   });
 });
 
-describe('test NotesManager removeNote method', () => {
-  it('object.removeNote() returns a boolean', () => {
-    expect(testingNote.removeNote('Adrian','Tests')).is.a('boolean'); 
-  });
-  it('object.removeNote() returns the correct boolean', () => {
-    expect(testingNote.removeNote('Adrian','Tests')).to.eql(false); 
-  });
-});
-
 describe('test NotesManager readNote method', () => {
   it('object.readNote() returns a boolean', () => {
-    expect(testingNote.readNote('Adrian','Prueba')).is.a('boolean'); 
+    expect(testingNote.readNote('Adrian','Tests')).is.a('boolean'); 
   });
   it('object.readNote() returns the correct boolean', () => {
-    expect(testingNote.readNote('Adrian','Prueba')).to.eql(true); 
+    expect(testingNote.readNote('Adrian','Tests')).to.eql(true); 
   });
 });
 
 describe('test NotesManager editNote method', () => {
   it('object.editNote() returns a boolean', () => {
-    expect(testingNote.editNote('Adrian','Prueba', 'Realizando pruebas con chai', 'yellow')).is.a('boolean'); 
+    expect(testingNote.editNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')).is.a('boolean'); 
   });
   it('object.addNote() returns the correct boolean', () => {
-    expect(testingNote.editNote('Adrian','Prueba', 'Realizando pruebas con chai otra vez', 'yellow')).to.eql(true); 
+    expect(testingNote.editNote('Adrian','Tests', 'Realizando pruebas con chai otra vez', 'yellow')).to.eql(true); 
   });
 });
 
@@ -55,6 +46,15 @@ describe('test NotesManager listNote method', () => {
   });
   it('object.readNote() returns the correct boolean', () => {
     expect(testingNote.listNotes('Pedro')).to.eql(false); 
+  });
+});
+
+describe('test NotesManager removeNote method', () => {
+  it('object.removeNote() returns a boolean', () => {
+    expect(testingNote.removeNote('Adrian','Tests')).is.a('boolean'); 
+  });
+  it('object.removeNote() returns the correct boolean', () => {
+    expect(testingNote.removeNote('Adrian','Tests')).to.eql(false); 
   });
 });
 
