@@ -4,20 +4,23 @@ import { NotesManager } from '../src/notesManager';
 
 const testingNote: NotesManager = new NotesManager();
 
+testingNote.addNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')
+
+
 describe('test NotesManager class constructor', () => {
   it('new NotesManager() returns a NotesManager Object', () => {
     expect(testingNote).to.be.instanceof(NotesManager); 
   });
 });
 
-describe('test NotesManager addNote method', () => {
+/*describe('test NotesManager addNote method', () => {
   it('object.addNote() returns a boolean', () => {
     expect(testingNote.addNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')).is.a('boolean'); 
   });
   it('object.addNote() returns the correct boolean', () => {
     expect(testingNote.addNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')).to.eql(false); 
   });
-});
+});*/
 
 describe('test NotesManager readNote method', () => {
   it('object.readNote() returns a boolean', () => {
