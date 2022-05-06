@@ -13,15 +13,6 @@ describe('test NotesManager class constructor', () => {
   });
 });
 
-/*describe('test NotesManager addNote method', () => {
-  it('object.addNote() returns a boolean', () => {
-    expect(testingNote.addNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')).is.a('boolean'); 
-  });
-  it('object.addNote() returns the correct boolean', () => {
-    expect(testingNote.addNote('Adrian','Tests', 'Realizando pruebas con chai', 'yellow')).to.eql(false); 
-  });
-});*/
-
 describe('test NotesManager readNote method', () => {
   it('object.readNote() returns a boolean', () => {
     expect(testingNote.readNote('Adrian','Tests')).is.a('boolean'); 
