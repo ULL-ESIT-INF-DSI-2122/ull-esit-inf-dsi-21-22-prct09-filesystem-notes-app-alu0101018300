@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 import { noteManagement } from './noteManagement';
+import {mkdir} from 'fs';
 
 /**
  * Clase Notes Manager, la cual será la encargada de almacenar todos los
@@ -30,7 +31,11 @@ export class NotesManager implements noteManagement{
    */
   public addFolder(): void {
     if (!fs.existsSync(this._path)) {
-      fs.mkdirSync(this._path);
+      mkdir(this._path, (err) => {
+        if (err) {
+          return console.error(err);
+        }
+      });
     }
   }
 
