@@ -20,7 +20,7 @@ export class NotesManager implements noteManagement{
    * @param user usuario que vamos a añadir al path
    */
     private establishPath(user: string): void {
-      this._path = `./notes/${user}`;
+      this._path = `./notes/` + user;
     }
 
   /**
@@ -28,7 +28,7 @@ export class NotesManager implements noteManagement{
    * no haya creado ninguna nota, este directorio tendrá el nombre del 
    * usuario
    */
-  private addFolder(): void {
+  public addFolder(): void {
     if (!fs.existsSync(this._path)) {
       fs.mkdirSync(this._path);
     }
