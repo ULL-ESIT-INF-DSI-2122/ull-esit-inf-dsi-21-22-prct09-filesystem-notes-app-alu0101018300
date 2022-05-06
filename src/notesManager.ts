@@ -21,7 +21,7 @@ export class NotesManager implements noteManagement{
    * @param user usuario que vamos a añadir al path
    */
     private establishPath(user: string): void {
-      this._path = `notes/` + user;
+      this._path = user;
     }
 
   /**
