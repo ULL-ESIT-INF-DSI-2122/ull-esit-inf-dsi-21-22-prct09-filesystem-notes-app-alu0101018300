@@ -19,9 +19,9 @@ export class NotesManager implements noteManagement{
    * a un path general, para que se almacenen ahi sus notas
    * @param user usuario que vamos a añadir al path
    */
-  private establishPath(user: string): void {
-    this._path = `/home/usuario/Practicas/Practica9/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101018300/notes/${user}`;
-  }
+    private establishPath(user: string): void {
+      this._path = `./notes/${user}`;
+    }
 
   /**
    * Función que añade un nuevo directorio en caso de que ese usuario
